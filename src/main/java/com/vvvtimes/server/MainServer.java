@@ -5,6 +5,7 @@ import com.vvvtimes.util.rsasign;
 import net.sf.json.JSONObject;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -47,10 +48,11 @@ public class MainServer extends AbstractHandler {
         String port = arguments.get("p");
 
         if (port == null || !port.matches("\\d+")) {
-            port = "8081";
+            port = "3000";
         }
 
-        Server server = new Server(Integer.parseInt(port));
+        InetSocketAddress address = new InetSocketAddress("0.0.0.0", Integer.parseInt(port));
+        Server server = new Server(address);
         server.setHandler(new MainServer());
         server.start();
 
